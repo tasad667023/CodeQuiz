@@ -1,6 +1,9 @@
 //var startButton = document.getElementById ("startButton"); 
 //on click --> do this 
-
+window.onload = function() {
+    console.log("starting");
+  };
+  
 //Index is equal to the question number
 var index = 0;
 //countdown clock
@@ -17,7 +20,7 @@ document.getElementById("start-button").addEventListener("click", event => {
     document.getElementById("start-quiz").classList.add("d-none");
     document.getElementById("quiz-questions").classList.remove("d-none");
     setTime();
-    renderQuestions();
+    renderAllQuestions();
     quizTime = setInterval(setTime, 1000);
   });
 
@@ -36,7 +39,7 @@ function renderQuestionOptions() {
     var question = questions[index].choices;
     console.log(question);
     for (var option = 0; option < question.length; option++) {
-      var questionOptions = document.getElementById("question-choices");
+      var questionOption = document.getElementById("question-choices");
       var questionButtons = document.createElement("button");
       questionButtons.className =
         "btn btn-outline-primary btn-lg d-flex justify-content-around";
@@ -47,13 +50,13 @@ function renderQuestionOptions() {
         "onclick",
         "checkAnswer(" + index + "," + option + ");"
       );
-      questionOptions.append(questionButtons);
+      questionOption.append(questionButtons);
     }
     quizOver();
   }
 
   //This function clears the divs for rendering the next question
-function clearQuestionDiv() {
+function clearQuestion() {
     console.log("Clear html");
     document.getElementById("question-choices").innerHTML = "";
     quizOver();
@@ -79,8 +82,8 @@ function checkAnswer(question, answer) {
       console.log("Next question: ", index);
       console.log("Incorrect!");
     }
-    clearQuestionDiv();
-    renderQuestions();
+    clearQuestion();
+    renderAllQuestions();
     quizOver();
   }
 

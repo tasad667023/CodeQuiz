@@ -22,19 +22,37 @@
 </br>
 <!-- this code is for the content of the page including the start quiz button -->
 <div id="start-quiz">
-              <h1 class="text-center" id="quiz-title">Coding Quiz Challenge</h1>
-              <div class="text-center" id="quiz-description">
-                <p>
-                  Welcome to the Coding Quiz Challenge. Press the start button to
-                  begin. And watch the clock, you lose 15 seconds if you choose
-                  the wrong answer.
-                </p>
-              </div>
-              <div class="text-center" id="startButton">
-                <button class="btn btn-danger" id="start-button">
-                  Start Quiz!
-                </button>
-              </div>
+    <h1 class="text-center" id="quiz-title">Coding Quiz Challenge</h1>
+    <div class="text-center" id="quiz-description">
+        <p>
+            Welcome to the Coding Quiz Challenge. Press the start button to begin. And watch the clock, you lose 15 seconds if you choose the wrong answer.
+        </p>
+    </div>
+    <div class="text-center" id="startButton">
+        <button class="btn btn-danger" id="start-button"> Start Quiz!</button>
+    </div>
 </div>
+<!--This section creates the page that displays the questiions and choices-->
+<div id="quiz-questions">
+    <h1 class="text-center" id="question"></h1>
+    <div class="text-center mt-5 d-flex flex-column" id="question-choices"> </div>
+    <div class="text-center" id="question-validity"></div>
+</div>
+<div id="all-done">
+    <h1 class="text-center" id="all-done-text">All Done!</h1>
+    <h2 class="text-center"> 
+        Your final score is:
+        <p id="final-score"></p>
+    </h2>
+</div>
+</div> 
+<div class="row justify-content-center"><div>
+    <p>Enter initials:</p>
+    <input type="text" id="initial-input"/>
+    <a href="final.html"> 
+        <button class="btn btn-danger" id="initials-button"> Submit </button>
+    </a>
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="questions.js"></script>
 </body>
 </html>
