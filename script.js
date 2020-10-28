@@ -4,7 +4,6 @@ window.onload = function() {
     console.log("starting");
   };
   
-//Index is equal to the question number
 var index = 0;
 //countdown clock
 var countDown = 75;
@@ -12,7 +11,7 @@ var countDown = 75;
 var score = 75;
 //User highschore
 var highScore = 0;
-//Variable for quiz time
+//Variable for quiz timer
 var quizTime;
 
 document.getElementById("start-button").addEventListener("click", event => {
@@ -24,56 +23,58 @@ document.getElementById("start-button").addEventListener("click", event => {
     quizTime = setInterval(setTime, 1000);
   });
 
-  //This fucntion renders the questions
+
 function renderAllQuestions() {
-    var questionsLength = questions.length - 1;
-    if (index <= questionsLength) {
-      document.getElementById("question").innerHTML = questions[index].title;
-      renderQuestionChoices();
+    // var questionsLength = questions.length - 1;
+    for (var i=0; i <= questions.length; i++){
+      
     }
-    quizOver();
+    if (index <= questions.length) {
+      document.getElementById("question").innerHTML = questions[index].title;
+      renderQuestionOptions();
+    }
+    // quizOver();
   }
   
-  //This function renders the question options on the HTML page as buttons
+  //This function is for the question options on HTML page as buttons
 function renderQuestionOptions() {
-    var question = questions[index].choices;
+    var question = questions[index].options;
     console.log(question);
-    for (var option = 0; option < question.length; option++) {
+    for (var i = 0; i < question.length; i++) {
       var questionOption = document.getElementById("question-choices");
       var questionButtons = document.createElement("button");
       questionButtons.className =
         "btn btn-outline-primary btn-lg d-flex justify-content-around";
-      questionButtons.innerHTML = question[option];
+      questionButtons.innerHTML = question[i];
   
-      //This fires the check answer function when the user clicks a question choices button
+      //This checks the answer when user choose an answer 
       questionButtons.setAttribute(
         "onclick",
-        "checkAnswer(" + index + "," + option + ");"
+        checkAnswer(i)
       );
       questionOption.append(questionButtons);
     }
-    quizOver();
+    // quizOver();
   }
 
-  //This function clears the divs for rendering the next question
+  //This function clears questions
 function clearQuestion() {
     console.log("Clear html");
     document.getElementById("question-choices").innerHTML = "";
     quizOver();
   }
 
-  //This function checks if the user selected the correct answer
+  //This function checks if the user has selected the correct answer
 function checkAnswer(question, answer) {
     console.log("question: ", question);
     console.log("asnwer: ", answer);
-    let correctAnswer = questions[question].answer;
-    let userAnswer = questions[question].choices[answer];
+    let correctAnswer = questions.answer;
+    let userAnswer = questions[question].options[answer];
     if (userAnswer == correctAnswer) {
       index = index + 1;
       console.log(score);
       console.log("Correct!!");
     }
-    //Whether they get the right or wrong answer, the program continues to the next question and deducts 15 seconds from the quiz clock
     else {
       index = index + 1;
       countDown = countDown - 15;
@@ -84,40 +85,36 @@ function checkAnswer(question, answer) {
     }
     clearQuestion();
     renderAllQuestions();
-    quizOver();
+    // quizOver();
   }
-
-  //This function starts the countdown for the time left clock quiz timer when the user clicks the start button
+// This function sets the time and lets the user know how much time they have left 
 function setTime() {
-    document.getElementById("quiz-time").innerHTML = countDown + "secs left";
-    countDown--;
+    document.getElementById("timer").innerHTML = countDown + "secs left";
+    // countDown--;
     if (countDown == -1) {
       clearInterval(quizTime);
     }
-    quizOver();
+    // quizOver();
   }
 
-  //This is a function that checks to see if these conditions are being met in other functions within the program
 function quizOver() {
     if (index >= 4 || countDown <= 0) {
       document.getElementById("quiz-questions").classList.add("d-none");
       document.getElementById("all-done").classList.remove("d-none");
-      document.getElementById("quiz-time").innerHTML = countDown + "sec left";
+      document.getElementById("timer").innerHTML = countDown + "sec left";
       document.getElementById("final-score").innerHTML = countDown;
   
       clearInterval(quizTime);
     }
+    else {return}
   }
 
-  //Event listener to allow the function to save their initials and high score
 document.getElementById("initials-button").addEventListener("click", savedScore);
 
-//Function for saving high score and initials
 function savedScore() {
   var userInitials = document.querySelector("#initial-input").value;
   var finalScore = countDown;
 
-  //Object stores intitials and high scores
   var scoreObject = { initials: userInitials, score: finalScore };
 
   var highScores = localStorage.getItem("highScoreList");

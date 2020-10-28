@@ -31,12 +31,11 @@
 </div>
 <script type="text/javascript" src="questions.js"></script>
 <script>
-  //This function renders the user high score
-  function renderHighScores() {
-    var highScoreContainer = document.getElementById(
+  //This function is for the user high score
+  function getUserHighScores() {
+    var highScoreCase = document.getElementById(
       "finalScoreListContainer"
     );
-
     var storedHighscores = localStorage.getItem("highScoreList");
     if (storedHighscores == null) {
       document.getElementById("scoreList").remove();
@@ -46,32 +45,29 @@
     storedHighscores = JSON.parse(storedHighscores);
     console.log("list", storedHighscores);
 
-    //Variable that creates the ordered list to store the users initials and high score
-    var containerList = document.createElement("ol");
-    containerList.setAttribute("id", "scoreList");
+    var questionAnswerList = document.createElement("ol");
+    questionAnswerList.setAttribute("id", "scoreList");
     for (var i = 0; i < storedHighscores.length; i++) {
-      var highScore = document.createElement("li");
-      highScore.setAttribute(
+      var highestScore = document.createElement("li");
+      highestScore.setAttribute(
         "class",
         "list-group-item list-group-item-success"
       );
-      highScore.innerHTML =
+      highestScore.innerHTML =
         storedHighscores[i].initials + " " + storedHighscores[i].score;
 
-      containerList.appendChild(highScore);
+        questionAnswerList.appendChild(highestScore);
     }
-    highScoreContainer.appendChild(containerList);
+    highScoreCase.appendChild(questionAnswerList);
   }
-  renderHighScores();
+  getUserHighScores();
 
-  //This code allows the user to clear the local storage once the quiz is finished
   var clearButton = document.querySelector("#clear-storage");
   clearButton.addEventListener("click", function() {
     localStorage.removeItem("highScoreList");
 
-    renderHighScores();
+    getUserHighScores();
   });
 </script>
-
 </body>
 </html>
